@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Index</title>
+	</head>
+	<body>
+		<a href="{% url 'logout' %}">Log out</a>
+		<a href="{% url 'travels' %}">Home</a>
+
+		<h1>Welcome, {{name}}</h1>
+
+		<h3>Your trips:</h3>
+
+		<table>
+			<tr><th>Destination</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Description</th>
+			</tr>
+			{% for trip in trips_on %}
+				<tr>
+					<td><a href="{% url 'show_plan' trip.id %}">{{trip.destination}}</a></td>
+					<td>{{trip.travelfrom}}</td>
+					<td>{{trip.travelto}}</td>
+					<td>{{trip.description}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+		<h3>Other trips:</h3>
+
+		<table>
+			<tr><th>Creator</th>
+				<th>Destination</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Description</th>
+				<th>Join?</th>
+			</tr>
+			{% for trip in trips_off %}
+				<tr>
+					<td>{{trip.creator.name}}</td>
+					<td><a href="{% url 'show_plan' trip.id %}">{{trip.destination}}</a></td>
+					<td>{{trip.travelfrom}}</td>
+					<td>{{trip.travelto}}</td>
+					<td>{{trip.description}}</td>
+					<td><a href="{% url 'join' trip.id %}">Join</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+
+		<a href="{% url 'new_plan' %}">Make a new trip</a>
+	</body>
+</html>
